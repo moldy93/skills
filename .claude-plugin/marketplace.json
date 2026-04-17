@@ -17,6 +17,15 @@
       "skills": [
         "./skills/multica"
       ]
+    },
+    {
+      "name": "moldy-openclaw-telegram-notify",
+      "description": "OpenClaw Telegram notification skill with target resolution and channel health checks",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/openclaw-telegram-notify"
+      ]
     }
   ]
 }

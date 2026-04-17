@@ -1,10 +1,13 @@
 {
   "name": "@moldy/skills",
   "version": "0.1.0",
-  "description": "Agent skills published by moldy, including the Multica skill.",
+  "description": "Agent skills published by moldy, including Multica and OpenClaw Telegram notification workflows.",
   "author": "moldy",
   "license": "UNLICENSED",
   "private": false,
+  "scripts": {
+    "test": "node --experimental-strip-types --test tests/repository.test.ts"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/moldy93/skills.git"
@@ -24,6 +27,8 @@
     "skills.sh",
     "claude-code",
     "openclaw",
-    "multica"
+    "multica",
+    "telegram",
+    "notifications"
   ]
 }

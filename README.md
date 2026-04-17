@@ -11,6 +11,7 @@ This repository follows the common multi-skill layout used by repositories like 
 ## Included Skills
 
 - `multica` — manage Multica from the CLI for setup, auth, daemon control, workspaces, issues, comments, runs, subscribers, and projects
+- `openclaw-telegram-notify` — send concise Telegram notifications through the local OpenClaw gateway without hard-coding the recipient target
 
 ## Repository Layout
 
@@ -19,11 +20,15 @@ This repository follows the common multi-skill layout used by repositories like 
 ├── .claude-plugin/
 │   └── marketplace.json
 ├── skills/
-│   └── multica/
+│   ├── multica/
 │       ├── SKILL.md
 │       └── references/
+│   └── openclaw-telegram-notify/
+│       └── SKILL.md
 ├── template/
 │   └── SKILL.md
+├── tests/
+│   └── repository.test.ts
 └── package.json
 ```
 
@@ -35,6 +40,7 @@ Install the `multica` skill from the repo once you have pushed it to GitHub:
 
 ```bash
 npx skills add https://github.com/moldy93/skills --skill multica
+npx skills add https://github.com/moldy93/skills --skill openclaw-telegram-notify
 ```
 
 ### OpenClaw
@@ -44,6 +50,7 @@ Copy or sync the skill directory into your local OpenClaw skills folder:
 ```bash
 mkdir -p ~/.openclaw/skills
 rsync -a ./skills/multica/ ~/.openclaw/skills/multica/
+rsync -a ./skills/openclaw-telegram-notify/ ~/.openclaw/skills/openclaw-telegram-notify/
 ```
 
 Then start a new OpenClaw session and verify with:
