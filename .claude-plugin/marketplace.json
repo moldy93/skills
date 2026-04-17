@@ -1,0 +1,22 @@
+{
+  "name": "moldy-skills",
+  "owner": {
+    "name": "moldy93",
+    "email": "moldy@favo.org"
+  },
+  "metadata": {
+    "description": "Moldy agent skills",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "moldy-multica",
+      "description": "Multica CLI skill for setup, auth, daemon control, workspaces, issues, comments, run history, subscribers, and projects",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/multica"
+      ]
+    }
+  ]
+}
