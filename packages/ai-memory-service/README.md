@@ -25,9 +25,8 @@ Memory root precedence:
 
 1. `AI_MEMORY_ROOT`
 2. `AI_MEMORY_MDATA_ROOT` + `/ai-memory`
-3. `/Volumes/mdata/ai-memory` when present
-4. macOS fallback: `~/Library/Application Support/ai-memory`
-5. other platforms: `${XDG_DATA_HOME:-~/.local/share}/ai-memory`
+3. macOS fallback: `~/Library/Application Support/ai-memory`
+4. other platforms: `${XDG_DATA_HOME:-~/.local/share}/ai-memory`
 
 ## Environment
 

@@ -5,7 +5,6 @@ import type { GuardrailSettings, MemoryRootSource, RuntimePaths } from "./types.
 
 export const REPO_MANIFEST_NAME = ".mempalace.json";
 export const CODEX_REPO_PLUGIN_LINK_NAME = ".codex-plugin";
-const DEFAULT_MDATA_ROOT = "/Volumes/mdata";
 const DEFAULT_MEMORY_DIRECTORY_NAME = "ai-memory";
 const DEFAULT_PYTHON_COMMAND = "python3";
 
@@ -90,15 +89,6 @@ function resolveMemoryRoot(
     return {
       memoryRoot: path.resolve(configuredMdataRoot, DEFAULT_MEMORY_DIRECTORY_NAME),
       source: "env:AI_MEMORY_MDATA_ROOT",
-      usesSharedMount: path.resolve(configuredMdataRoot) === DEFAULT_MDATA_ROOT,
-    };
-  }
-
-  const sharedMountMemoryRoot = path.join(DEFAULT_MDATA_ROOT, DEFAULT_MEMORY_DIRECTORY_NAME);
-  if (existsSync(sharedMountMemoryRoot)) {
-    return {
-      memoryRoot: sharedMountMemoryRoot,
-      source: "shared-mount",
       usesSharedMount: true,
     };
   }

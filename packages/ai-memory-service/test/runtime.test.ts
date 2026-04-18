@@ -19,7 +19,24 @@ test("AI_MEMORY_ROOT wins over all other path inputs", () => {
   assert.equal(paths.memoryRootSource, "env:AI_MEMORY_ROOT");
 });
 
-test("/Volumes/mdata/ai-memory is selected when present", () => {
+test("AI_MEMORY_MDATA_ROOT resolves to a custom ai-memory root", () => {
+  const paths = resolveRuntimePaths(
+    {
+      AI_MEMORY_MDATA_ROOT: "/srv/shared-memory",
+    },
+    {
+      existsSync: () => false,
+      homeDir: "/tmp/home",
+      platform: "darwin",
+    },
+  );
+
+  assert.equal(paths.memoryRoot, "/srv/shared-memory/ai-memory");
+  assert.equal(paths.memoryRootSource, "env:AI_MEMORY_MDATA_ROOT");
+  assert.equal(paths.usesSharedMount, true);
+});
+
+test("macOS fallback uses Application Support when no explicit memory root is configured", () => {
   const paths = resolveRuntimePaths(
     {},
     {
@@ -29,23 +46,9 @@ test("/Volumes/mdata/ai-memory is selected when present", () => {
     },
   );
 
-  assert.equal(paths.memoryRoot, "/Volumes/mdata/ai-memory");
-  assert.equal(paths.memoryRootSource, "shared-mount");
-  assert.equal(paths.usesSharedMount, true);
-});
-
-test("macOS fallback uses Application Support when shared mount is absent", () => {
-  const paths = resolveRuntimePaths(
-    {},
-    {
-      existsSync: () => false,
-      homeDir: "/tmp/home",
-      platform: "darwin",
-    },
-  );
-
   assert.equal(paths.memoryRoot, "/tmp/home/Library/Application Support/ai-memory");
   assert.equal(paths.memoryRootSource, "macos-home");
+  assert.equal(paths.usesSharedMount, false);
 });
 
 test("Apple Silicon guardrails default HNSW threads to 1 and honor overrides", () => {

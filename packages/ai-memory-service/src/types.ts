@@ -8,7 +8,6 @@ export interface RepoMemoryManifest {
 export type MemoryRootSource =
   | "env:AI_MEMORY_ROOT"
   | "env:AI_MEMORY_MDATA_ROOT"
-  | "shared-mount"
   | "macos-home"
   | "xdg-home"
   | "local-share";
