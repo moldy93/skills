@@ -1,12 +1,14 @@
 {
   "name": "@moldy/skills",
-  "version": "0.1.0",
-  "description": "Agent skills published by moldy, including Multica and OpenClaw Telegram notification workflows.",
-  "author": "moldy",
+  "version": "0.2.0",
+  "description": "Public-safe agent skills plus reusable local AI memory tooling.",
   "license": "UNLICENSED",
-  "private": false,
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "test": "node --experimental-strip-types --test tests/repository.test.ts"
+    "test": "npm run test --workspace ai-memory-service && node --experimental-strip-types --test tests/repository.test.ts"
   },
   "repository": {
     "type": "git",
@@ -24,11 +26,14 @@
   ],
   "keywords": [
     "agent-skills",
-    "skills.sh",
-    "claude-code",
+    "mempalace",
+    "shared-memory",
     "openclaw",
     "multica",
     "telegram",
-    "notifications"
+    "notifications",
+    "skills.sh",
+    "claude-code",
+    "codex"
   ]
 }

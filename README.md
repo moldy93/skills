@@ -1,8 +1,6 @@
 # @moldy/skills
 
-Public repository for agent skills.
-
-This repository follows the common multi-skill layout used by repositories like [`anthropics/skills`](https://github.com/anthropics/skills):
+Public-safe repository for reusable agent skills and local AI memory tooling.
 
 - `skills/` contains self-contained skills
 - `.claude-plugin/marketplace.json` groups skills for Claude Code plugin marketplace installs
@@ -12,6 +10,17 @@ This repository follows the common multi-skill layout used by repositories like 
 
 - `multica` — manage Multica from the CLI for setup, auth, daemon control, workspaces, issues, comments, runs, subscribers, and projects
 - `openclaw-telegram-notify` — send concise Telegram notifications through the local OpenClaw gateway without hard-coding the recipient target
+- `mempalace-shared-memory` — use shared MemPalace history for past decisions, debugging context, and repo memory bootstrapping
+
+## Included Package
+
+- `packages/ai-memory-service` — reusable local service package with:
+  - `ai-memory-init`
+  - `ai-memory-mine`
+  - `ai-memory-mcp-server`
+  - `ai-memory-bootstrap-codex`
+  - `ai-memory-bootstrap-openclaw`
+  - `ai-memory-doctor`
 
 ## Repository Layout
 
@@ -19,10 +28,15 @@ This repository follows the common multi-skill layout used by repositories like 
 .
 ├── .claude-plugin/
 │   └── marketplace.json
+├── packages/
+│   └── ai-memory-service/
 ├── skills/
+│   ├── mempalace-shared-memory/
+│   │   ├── SKILL.md
+│   │   └── references/
 │   ├── multica/
-│       ├── SKILL.md
-│       └── references/
+│   │   ├── SKILL.md
+│   │   └── references/
 │   └── openclaw-telegram-notify/
 │       └── SKILL.md
 ├── template/
@@ -34,23 +48,40 @@ This repository follows the common multi-skill layout used by repositories like 
 
 ## Install
 
-### skills.sh style
+### Local service package
 
-Install the `multica` skill from the repo once you have pushed it to GitHub:
+Install the reusable AI memory service from this repo clone:
 
 ```bash
-npx skills add https://github.com/moldy93/skills --skill multica
-npx skills add https://github.com/moldy93/skills --skill openclaw-telegram-notify
+npm install -g ./packages/ai-memory-service
+ai-memory-doctor
+```
+
+### Skill repos
+
+Install skills from any compatible repo URL:
+
+```bash
+npx skills add <repo-url> --skill multica
+npx skills add <repo-url> --skill openclaw-telegram-notify
+npx skills add <repo-url> --skill mempalace-shared-memory
 ```
 
 ### OpenClaw
 
-Copy or sync the skill directory into your local OpenClaw skills folder:
+Copy or sync skill directories into your local OpenClaw skills folder:
 
 ```bash
 mkdir -p ~/.openclaw/skills
 rsync -a ./skills/multica/ ~/.openclaw/skills/multica/
 rsync -a ./skills/openclaw-telegram-notify/ ~/.openclaw/skills/openclaw-telegram-notify/
+rsync -a ./skills/mempalace-shared-memory/ ~/.openclaw/skills/mempalace-shared-memory/
+```
+
+Or install the memory skill through the service package:
+
+```bash
+ai-memory-bootstrap-openclaw
 ```
 
 Then start a new OpenClaw session and verify with:
@@ -59,10 +90,18 @@ Then start a new OpenClaw session and verify with:
 openclaw skills list
 ```
 
-### Claude Code marketplace
+### Codex
 
-This repo includes a `.claude-plugin/marketplace.json` manifest so it can follow the same grouped-repo pattern as `anthropics/skills`.
+Once `ai-memory-service` is installed:
 
-## Publish Later
+```bash
+ai-memory-bootstrap-codex <repo-root>
+ai-memory-init <repo-root>
+```
 
-The repo also includes `package.json` so it can be published later as `@moldy/skills`. The npm package is only a packaging wrapper around the repository contents; the actual skills live in `skills/`.
+That writes the Codex MCP entry, installs the local hook bundle, and opts the repo into shared memory with `.mempalace.json`.
+
+## Notes
+
+- The shared repo contains no checked-in personal paths, chat IDs, or private contact metadata.
+- Runtime defaults stay configurable through environment variables and still work on a clean machine through path probing.

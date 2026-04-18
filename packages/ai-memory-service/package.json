@@ -1,0 +1,35 @@
+{
+  "name": "ai-memory-service",
+  "version": "0.1.0",
+  "description": "Reusable local MemPalace service, MCP wrapper, and Codex/OpenClaw adapters.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "private": false,
+  "engines": {
+    "node": ">=22.6.0"
+  },
+  "bin": {
+    "ai-memory-init": "./bin/ai-memory-init",
+    "ai-memory-mine": "./bin/ai-memory-mine",
+    "ai-memory-mcp-server": "./bin/ai-memory-mcp-server",
+    "ai-memory-bootstrap-codex": "./bin/ai-memory-bootstrap-codex",
+    "ai-memory-bootstrap-openclaw": "./bin/ai-memory-bootstrap-openclaw",
+    "ai-memory-doctor": "./bin/ai-memory-doctor",
+    "ai-memory-codex-hook": "./bin/ai-memory-codex-hook"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --experimental-strip-types --test test/runtime.test.ts test/codex.test.ts && node --experimental-strip-types test/mcp-smoke.ts"
+  },
+  "keywords": [
+    "mempalace",
+    "shared-memory",
+    "mcp",
+    "codex",
+    "openclaw"
+  ]
+}

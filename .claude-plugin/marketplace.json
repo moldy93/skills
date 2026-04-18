@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Moldy agent skills",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "plugins": [
     {
@@ -25,6 +25,15 @@
       "strict": false,
       "skills": [
         "./skills/openclaw-telegram-notify"
+      ]
+    },
+    {
+      "name": "moldy-mempalace-shared-memory",
+      "description": "MemPalace shared memory skill for generic repo history, debugging context, and local agent bootstrapping",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/mempalace-shared-memory"
       ]
     }
   ]
